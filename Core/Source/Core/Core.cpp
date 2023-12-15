@@ -10,4 +10,9 @@ namespace Core {
 		std::cin.get();
 	}
 
+	void test() {
+		std::cout << "Hello World!\n";
+		std::cin.get();
+	}
+
 }

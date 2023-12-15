@@ -1,5 +1,5 @@
 -- premake5.lua
-workspace "New Project"
+workspace "Machine Project"
    architecture "x64"
    configurations { "Debug", "Release", "Dist" }
    startproject "App"
