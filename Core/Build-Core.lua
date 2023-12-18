@@ -10,7 +10,6 @@ project "Core"
    includedirs
    {
       "Source",
-	"Source/ioc"
    }
 
    targetdir ("../Binaries/" .. OutputDir .. "/%{prj.name}")

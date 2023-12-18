@@ -1,24 +1,27 @@
-#include "Core/Core.h"
 #include "Core/ioc/Container.h"
+#include "Core/log/EntryBuilder.h"
+#include "Core/log/Channel.h"
 #include <iostream>
 
 
-struct Base
-{
-	virtual int Test() { return 123; }
-	virtual ~Base() = default;
-};
+#define machinelog machine::log::EntryBuilder{__FILEW__,__FUNCTIONW__,__LINE__}
 
-struct Derived : public Base
-{
-	int Test() override { return 321; }
+class MockChannel : public machine::log::IChannel {
+public:
+	void Submit(machine::log::Entry& e) override {
+		e_ = e;
+		std::wcout << e.sourceFile_ << "\n";
+		std::wcout << e.sourceFunctionName_ << "\n";
+		std::wcout << e.sourceLine_ << "\n";
+		std::wcout << e.note_ << "\n";
+	}
+	machine::log::Entry e_;
 };
-
 
 
 int main()
 {
-	machine::ioc::Get().Register<Base>([] {return std::make_shared<Derived>(); });
-	std::cout << machine::ioc::Get().Resolve<Base>()->Test() << std::endl;
+	MockChannel mc;
+	machinelog.level(machine::log::Level::Error).note(L"logging test").channel(&mc);
 }
 

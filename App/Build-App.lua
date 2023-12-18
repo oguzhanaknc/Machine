@@ -12,7 +12,7 @@ project "App"
       "Source",
 
 	  -- Include Core
-	  "../Core/Source"
+	  "../Core/Source",
    }
 
    links
