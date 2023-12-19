@@ -23,5 +23,6 @@ int main()
 {
 	MockChannel mc;
 	machinelog.level(machine::log::Level::Error).note(L"logging test").channel(&mc);
+	machinelog.fatal(L"Selam fatal error").channel(&mc);
 }
 
