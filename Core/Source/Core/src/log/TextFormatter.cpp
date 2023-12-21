@@ -2,7 +2,8 @@
 
 std::wstring machine::log::TextFormatter::Format(const Entry& e) const
 {
-	return std::format(L"@{} {{{}}} {}\n  >> at {}\n     {}({})\n",
+	std::wostringstream oss;
+	oss << std::format(L"@{} {{{}}} {}\n  >> at {}\n     {}({})\n",
 		GetLevelName(e.level_),
 		std::chrono::zoned_time{ std::chrono::current_zone(), e.timeStamp },
 		e.note_,
@@ -10,6 +11,11 @@ std::wstring machine::log::TextFormatter::Format(const Entry& e) const
 		e.sourceFile_,
 		e.sourceLine_
 	);
+	if (e.tracer)
+	{
+		oss << e.tracer->Print() << "\n";
+	}
+	return oss.str();
 }
 
 

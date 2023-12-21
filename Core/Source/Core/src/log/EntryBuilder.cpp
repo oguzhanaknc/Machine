@@ -77,6 +77,9 @@ namespace machine::log {
 	EntryBuilder::~EntryBuilder()
 	{
 		if (dest_) {
+			if ((int)level_ <= (int)Level::Error) {
+				tracer.emplace();
+			}
 			dest_->Submit(*this);
 		}
 	}

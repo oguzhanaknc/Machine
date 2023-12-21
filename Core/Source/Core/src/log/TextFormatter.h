@@ -2,6 +2,7 @@
 #include "string"
 #include "format"
 #include "Entry.h"
+#include "sstream"
 namespace machine::log {
 
 	struct Entry;

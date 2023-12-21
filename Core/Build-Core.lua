@@ -10,6 +10,8 @@ project "Core"
    includedirs
    {
       "Source",
+	"Soruce/src",
+"Source/third"
    }
 
    targetdir ("../Binaries/" .. OutputDir .. "/%{prj.name}")
