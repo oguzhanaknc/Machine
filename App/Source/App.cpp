@@ -3,6 +3,7 @@
 #include "Core/log/Channel.h"
 #include "Core/log/MsvcDebugDriver.h"
 #include "Core/log/TextFormatter.h"
+#include "Core/log/SeverityLevelPolicy.h"
 #include <iostream>
 
 using namespace machine;
@@ -10,10 +11,12 @@ using namespace machine;
 
 int main()
 {
+	std::unique_ptr<log::IPolicy> pPolicy = std::make_unique<log::SeverityLevelPolicy>(log::Level::Error);
 	std::unique_ptr<log::IChannel> pChan = std::make_unique<log::Channel>(std::vector<std::shared_ptr<log::IDriver>>{
 		std::make_shared<log::MsvcDebugDriver>(std::make_unique<log::TextFormatter>())
 	});
-	machinelog.fatal(L"Haydi Bakalim");
+	pChan->AttachPolicy(std::move(pPolicy));
+	machinelog.info(L"Haydi Bakalim");
 	return 0;
 }
 

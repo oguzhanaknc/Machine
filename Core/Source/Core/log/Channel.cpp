@@ -7,8 +7,17 @@ namespace machine::log {
 		driverPtrs_(driverPtrs)
 	{
 	}
+	Channel::~Channel()
+	{
+	}
 	void Channel::Submit(Entry& e)
 	{
+		for (auto& pPolicy : policyPtrs_) {
+			if (!pPolicy->TransformFilter(e)) {
+				return;
+			}
+		}
+
 		for (auto& pDriver : driverPtrs_)
 		{
 			pDriver->Submit(e);
@@ -17,6 +26,10 @@ namespace machine::log {
 	void Channel::AttachDriver(std::shared_ptr<IDriver> pDriver)
 	{
 		driverPtrs_.push_back(std::move(pDriver));
+	}
+	void Channel::AttachPolicy(std::unique_ptr<IPolicy> pPolicy)
+	{
+		policyPtrs_.push_back(std::move(pPolicy));
 	}
 }
 

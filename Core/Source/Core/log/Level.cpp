@@ -4,7 +4,7 @@ namespace machine::log {
 	std::wstring GetLevelName(Level lv) {
 		switch (lv)
 		{
-		case machine::log::Level::Trace:
+		case machine::log::Level::Verbose:
 			return L"Trace";
 		case machine::log::Level::Debug:
 			return L"Debug";

@@ -2,13 +2,6 @@
 #include <string>
 namespace machine::log {
 
-		enum class Level {
-			Trace,
-			Debug,
-			Info,
-			Warn,
-			Error,
-			Fatal
-		};
+		enum class Level {None,Fatal,Error,Warn,Info,Debug,Verbose};
 		std::wstring GetLevelName(Level);
 }

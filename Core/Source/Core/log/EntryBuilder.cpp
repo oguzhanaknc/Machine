@@ -29,7 +29,7 @@ namespace machine::log {
 	EntryBuilder& EntryBuilder::trace(std::wstring note)
 	{
 		note_ = std::move(note);
-		level_ = Level::Trace;
+		level_ = Level::Verbose;
 		return *this;
 	}
 
