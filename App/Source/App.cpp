@@ -1,9 +1,9 @@
-#include "Core/ioc/Container.h"
-#include "Core/log/EntryBuilder.h"
-#include "Core/log/Channel.h"
-#include "Core/log/MsvcDebugDriver.h"
-#include "Core/log/TextFormatter.h"
-#include "Core/log/SeverityLevelPolicy.h"
+#include "Core/src/ioc/Container.h"
+#include "Core/src/log/EntryBuilder.h"
+#include "Core/src/log/Channel.h"
+#include "Core/src/log/MsvcDebugDriver.h"
+#include "Core/src/log/TextFormatter.h"
+#include "Core/src/log/SeverityLevelPolicy.h"
 #include <iostream>
 
 using namespace machine;
@@ -17,6 +17,7 @@ int main()
 	});
 	pChan->AttachPolicy(std::move(pPolicy));
 	machinelog.info(L"Haydi Bakalim");
+	machinelog.error(L"Haydi bu calisirt Bakalim");
 	return 0;
 }
 
