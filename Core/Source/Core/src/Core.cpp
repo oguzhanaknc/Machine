@@ -2,17 +2,8 @@
 
 #include <iostream>
 
-namespace Core {
-
-	void PrintHelloWorld()
-	{
-		std::cout << "Hello World!\n";
-		std::cin.get();
+namespace machine::core {
+	void Boot() {
+		log::Boot();
 	}
-
-	void test() {
-		std::cout << "Hello World!\n";
-		std::cin.get();
-	}
-
 }

@@ -8,7 +8,7 @@ namespace machine::utilities {
 		backward::TraceResolver thisIsAWorkaround;
 		pTrace = std::make_unique<backward::StackTrace>();
 		pTrace->load_here(64);
-		pTrace->skip_n_firsts(4);
+		pTrace->skip_n_firsts(6);
 	}
 	StackTrace::~StackTrace()
 	{

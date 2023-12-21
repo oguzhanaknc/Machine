@@ -1,7 +1,7 @@
 #include "MsvcDebugDriver.h"
 
 namespace machine::log {
-	MsvcDebugDriver::MsvcDebugDriver(std::unique_ptr<ITextFormatter> pFormatter)
+	MsvcDebugDriver::MsvcDebugDriver(std::shared_ptr<ITextFormatter> pFormatter)
 		:
 		pFormatter_{ std::move(pFormatter) }
 	{}
@@ -12,7 +12,7 @@ namespace machine::log {
 		}
 		// TODO: how to log stuff from log system
 	}
-	void MsvcDebugDriver::SetFormatter(std::unique_ptr<ITextFormatter> pFormatter)
+	void MsvcDebugDriver::SetFormatter(std::shared_ptr<ITextFormatter> pFormatter)
 	{
 		pFormatter_ = std::move(pFormatter);
 	}
