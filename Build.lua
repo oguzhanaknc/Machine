@@ -2,7 +2,7 @@
 workspace "Machine Project"
    architecture "x64"
    configurations { "Debug", "Release", "Dist" }
-   startproject "App"
+   startproject "WindowApp"
 
    -- Workspace-wide build options for MSVC
    filter "system:windows"
@@ -17,3 +17,4 @@ group "Core"
 group ""
 
 include "App/Build-App.lua"
+include "WindowApp/Build-WindowApp.lua"

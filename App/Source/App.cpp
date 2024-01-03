@@ -3,9 +3,7 @@
 
 using namespace machine;
 void anathorfunc() {
-
 	machinelog.error(L"Haydi bu calisirt Bakalim");
-
 }
 
 void somefunc() {

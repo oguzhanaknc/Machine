@@ -2,7 +2,7 @@
 #include "Vec2.h" 
 #include "Dimensions.h" 
 
-namespace chil::spa
+namespace machine::spa
 {
     template<typename T>
     struct RectT

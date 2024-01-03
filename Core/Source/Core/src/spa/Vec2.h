@@ -1,6 +1,6 @@
 #pragma once 
 
-namespace chil::spa
+namespace machine::spa
 {
     template<typename T>
     struct Vec2T
