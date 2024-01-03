@@ -8,7 +8,7 @@
 #include <format>
 #include <tuple>
 #include <stdexcept>
-
+#include <Core/src/utilities/String.h>
 
 namespace machine::ioc
 {
@@ -39,9 +39,9 @@ namespace machine::ioc
 			serviceMap_[typeid(T)] = gen;
 		}
 		template<Parameterized T>
-		std::shared_ptr<T> Resolve(typename T::SvcParams&& params = {}) const
+		std::shared_ptr<T> Resolve(typename T::IocParams&& params = {}) const
 		{
-			return Resolve_<T, ParameterizedGenerator<T>>(std::forward<typename T::SvcParams>(params));
+			return Resolve_<T, ParameterizedGenerator<T>>(std::forward<typename T::IocParams>(params));
 		}
 		template<NotParameterized T>
 		std::shared_ptr<T> Resolve() const
@@ -61,7 +61,6 @@ namespace machine::ioc
 					return std::any_cast<G>(entry)(std::forward<Ps>(arg)...);
 				}
 				catch (const std::bad_any_cast&) {
-					// TODO: make this an assert
 					throw std::logic_error{ std::format(
 						"Could not resolve IoC mapped type\nfrom: [{}]\n  to: [{}]\n",
 						entry.type().name(), typeid(G).name()
@@ -70,7 +69,7 @@ namespace machine::ioc
 			}
 			else
 			{
-				throw std::runtime_error{ std::format("Could not find generator for type [{}] in IoC container", typeid(T).name()) };
+				throw std::bad_function_call();
 			}
 		}
 		// data
