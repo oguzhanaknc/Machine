@@ -5,5 +5,6 @@
 namespace machine::core {
 	void Boot() {
 		log::Boot();
+		win::Boot();
 	}
 }
