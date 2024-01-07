@@ -5,23 +5,13 @@
 #include "Window.h"
 
 
-template<class T>
-auto operator|(std::shared_ptr<T> lhs, std::shared_ptr<T> rhs)
-{
-	if (bool(lhs)) {
-		return std::move(lhs);
-	}
-	else {
-		return std::move(rhs);
-	}
-}
-
 void machine::win::Boot()
 {
 	// container 
 	ioc::Get().Register<IWindow>([](IWindow::IocParams args) {
 		return std::make_shared<Window>(
-			(args.pClass | ioc::Sing().Resolve<IWindowClass>()),
+			args.pClass ? args.pClass : ioc::Sing().Resolve<IWindowClass>(),
+			args.pKeySink ? args.pKeySink : ioc::Sing().Resolve<IKeyboardSink>(),
 			args.name.value_or(L"Main Window"),
 			args.size.value_or(spa::DimensionsI{ 1280, 720 }),
 			args.position

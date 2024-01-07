@@ -5,7 +5,7 @@
 #include <optional>
 #include <Core/src/spa/Dimensions.h>
 #include <Core/src/spa/Vec2.h>
-
+#include "Input.h"
 namespace machine::win {
 	class IWindow
 	{
@@ -19,6 +19,7 @@ namespace machine::win {
 			std::optional<std::wstring> name;
 			std::optional<spa::DimensionsI> size;
 			std::optional<spa::Vec2I> position;
+			std::shared_ptr<IKeyboardSink> pKeySink;
 		};
 		// functions 
 		virtual ~IWindow() = default;

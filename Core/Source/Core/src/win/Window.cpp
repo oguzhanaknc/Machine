@@ -6,10 +6,11 @@
 #include <Core/src/utilities/String.h> 
 
 namespace  machine::win {
-	Window::Window(std::shared_ptr<IWindowClass> pWindowClass, std::wstring title,
+	Window::Window(std::shared_ptr<IWindowClass> pWindowClass, std::shared_ptr<IKeyboardSink> pKeySink, std::wstring title,
 		spa::DimensionsI clientAreaSize, std::optional<spa::Vec2I> position)
 		:
 		pWindowClass_{ std::move(pWindowClass) },
+		pKeySink_{ std::move(pKeySink) },
 		kernelThread_{ &Window::MessageKernel_, this }
 	{
 		auto future = tasks_.Push([=, this] {
@@ -79,6 +80,12 @@ namespace  machine::win {
 			case CustomTaskMessageId:
 				tasks_.PopExecute();
 				return 0;
+			case WM_KEYDOWN:
+				pKeySink_->PutEvent(KeyEvent{ .type = KeyEvent::Type::Press, .code = (uint8_t)wParam });
+				break;
+			case WM_KEYUP:
+				pKeySink_->PutEvent(KeyEvent{ .type = KeyEvent::Type::Release, .code = (uint8_t)wParam });
+				break;
 			}
 		}
 		catch (const std::exception& e) {

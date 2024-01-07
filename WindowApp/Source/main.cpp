@@ -1,5 +1,7 @@
 #include <Core/src/Core.h>
+#include <Core/src/win/Input.h>
 #include <Core/src/ioc/Container.h> 
+
 using namespace machine;
 using namespace std::chrono_literals;
 
@@ -9,14 +11,27 @@ int WINAPI wWinMain(
 	HINSTANCE hInstance,
 	HINSTANCE hPrevInstance,
 	PWSTR pCmdLine,
-	int nCmdShow)
-{
+	int nCmdShow){
 	core::Boot();
-	auto windowPtr = ioc::Get().Resolve<win::IWindow>();
-	windowPtr->SetTitle(L"ILLUSION ENGINE FIRST WINDOW");
-	int x = 0;
-	while (windowPtr && !windowPtr->IsClosing()) {
-		std::this_thread::sleep_for(50ms);
+	auto keyboard = std::make_shared<win::Keyboard>();
+	auto windowPtr = ioc::Get().Resolve<win::IWindow>(win::IWindow::IocParams{
+					.name = L"Window main",
+					.pKeySink = keyboard,
+		});
+	while (!windowPtr->IsClosing()) {
+
+		while (const auto e = keyboard->GetEvent()) {
+			if (e->type == win::KeyEvent::Type::Release) continue;
+			switch (e->code) {
+			case VK_SPACE:
+				break;
+			}
+			if (keyboard->KeyIsPressed(win::keys::KEY_F))
+			{
+				windowPtr->SetTitle(L"Respect !");
+
+			}
+		}
 	}
 	return 0;
 }
